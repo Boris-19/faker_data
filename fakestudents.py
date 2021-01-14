@@ -5,6 +5,12 @@ import datetime
 
 fake = Faker('en-GB')
 
+courses_list = ['Computing', 'IT', 'ICT','Business', 'Applied Law', 'Intro to Business', 'Introduction to Hospitality', 'Culinary Skills', 'Barbering', 'Hairdressing', 'Hairdressing & Barbering', 'Beauty Therapy', 'Art & Design','Creative Media', 'Film, Photography & Media', 'Interactive Media', 'Creative Media Skills', 'Performing Arts Practice', 'Music Technology', 'Music', 'Music Production', 'Music Industry Skills', ]
+
+providers_list = ['BTEC','C&G','Restart','T-Level','Adv. Apprenticeship']
+
+
+
 def generate_streetaddress():
     address = fake.street_address()
     address = address.replace('\n',' ')
@@ -35,13 +41,18 @@ def generateFakeStudents():
     f.close
 
 def generateFakeCourse():
+
+    
     output = "coursecode,coursetitle,hours,level,courselength,startdate,courseleader"
     
-    for x in range(0,300):
+    for x in range(0,100):
+        level = str(fake.random_int(1,4))
+        course = fake.word(ext_word_list=courses_list)
+        provider = fake.word(ext_word_list=providers_list)
         output += ("\n"+fake.bothify(text='??###?',letters='ABCDEF')+","  
-        +fake.catch_phrase()+","    #Couse Title
+        +provider+" Level "+level+" "+course+","    #Couse Title
         +str(fake.random_int(0,30))+","    #Hours per week
-        +str(fake.random_int(1,4))+","     #Level of course
+        +level+","     #Level of course
         +str(fake.random_int(4,52))+","    #Course Length in Weeks
         +str(fake.date_between_dates(datetime.date(2021,1,1),datetime.date(2021,6,30)))+","    #start date
         +fake.first_name()+" "+fake.last_name())
