@@ -1,5 +1,6 @@
 from faker import Faker
 from random import randint
+from numpy import random
 import time
 import datetime
 
@@ -20,11 +21,13 @@ def generate_streetaddress():
 
 
 def generateFakeStudents():
-    output = "student_id,firstname,surname,age,dob,address1,address2,postcode,phone,email"
+    output = "student_id,firstname,surname,gender,age,dob,address1,address2,postcode,phone,email"
     for x in range(0,3000):
+        gender = random.choice(["M","F"], p=[0.5,0.5])
         output += ("\n"+fake.ean(prefixes=('3', ),length=8)+","
             +fake.first_name()+","
             +fake.last_name()+","
+            +gender+","
             +str(randint(16,30))+","
             +str(fake.date_of_birth(None,16,30))+","
             +generate_streetaddress()+","
